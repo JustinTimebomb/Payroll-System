@@ -1,0 +1,99 @@
+<!-- Example: payroll_report.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Report</title>
+    <style>
+        /* Existing styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f9ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0074d9;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #0074d9;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f1f9ff;
+        }
+
+        .currency {
+            color: #0074d9;
+            font-weight: bold;
+        }
+
+        .print-button {
+            background-color: #0074d9;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .print-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Payroll Report</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Basic Salary ({{ currency }})</th>
+                <th>Overtime Pay ({{ currency }})</th>
+                <th>Deductions ({{ currency }})</th>
+                <th>Net Pay ({{ currency }})</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payroll in payrolls %}
+            <tr>
+                <td>{{ payroll.employee.first_name }} {{ payroll.employee.last_name }}</td>
+                <td>{{ payroll.basic_salary }}</td>
+                <td>{{ payroll.overtime_pay }}</td>
+                <td>{{ payroll.deductions }}</td>
+                <td><span class="currency">{{ currency }}</span> {{ payroll.net_pay }}</td>
+                <td>
+                    <!-- Print Button -->
+                    <form action="{% url 'print_payroll' payroll.id %}" method="get" target="_blank">
+                        <button type="submit" class="print-button">Print</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

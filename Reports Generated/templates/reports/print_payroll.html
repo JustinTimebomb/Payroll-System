@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Payroll - {{ payroll.employee.first_name }} {{ payroll.employee.last_name }}</title>
+    <style>
+        /* Styles for printing */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0074d9;
+            margin-bottom: 20px;
+        }
+
+        .details {
+            margin-bottom: 20px;
+        }
+
+        .details p {
+            margin: 5px 0;
+        }
+
+        .currency {
+            color: #0074d9;
+            font-weight: bold;
+        }
+
+        @media print {
+            /* Hide unnecessary elements when printing */
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Payroll Details</h1>
+    <div class="details">
+        <p><strong>Employee Name:</strong> {{ payroll.employee.first_name }} {{ payroll.employee.last_name }}</p>
+        <p><strong>Date From:</strong> {{ payroll.date_from }}</p>
+        <p><strong>Date To:</strong> {{ payroll.date_to }}</p>
+        <p><strong>Basic Salary:</strong> {{ payroll.basic_salary }} {{ currency }}</p>
+        <p><strong>Overtime Pay:</strong> {{ payroll.overtime_pay }} {{ currency }}</p>
+        <p><strong>Deductions:</strong> {{ payroll.deductions }} {{ currency }}</p>
+        <p><strong>Net Pay:</strong> <span class="currency">{{ currency }}</span> {{ payroll.net_pay }}</p>
+    </div>
+
+    <!-- Print Button -->
+    <div style="text-align: center;">
+        <button onclick="window.print()">Print</button>
+    </div>
+</body>
+</html>
